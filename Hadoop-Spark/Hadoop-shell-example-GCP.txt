@@ -1,0 +1,56 @@
+/get csv from web/
+wget https://github.com/blablabla/retailstore.csv
+
+/the cluster starts naked, so you have to transfer every file from home to hadoop Home/
+
+/create hadoop dir: use the same as home/
+hadoop fs -mkdir /user/vfarneze
+
+hadoop fs -mkdir /user/vfarneze/data
+
+/transfer csv to hadoop internal file/
+hadoop fs -put retailstore.csv /user/vfarneze/data
+
+/you can see with -cat the csv file/
+hadoop fs -cat /user/vfarneze/data/retailstore.csv
+
+
+/start hive/
+hive
+
+/NOTICE****: you can do hadoop commands inside HIVE usin "dfs"/
+dfs -ls /user/vfarneze/data/
+
+
+/create database - remember HIVE does not have DBs, it only points DB in HDFS (it can stores metadata however)/
+create database if not exists {DB-name};
+
+/show databases/
+show databases;
+
+/select database to use/
+use {DB-name};
+
+/create table for csv/
+create table retailcust (age INT, salary FLOAT, gender String, country String, purchased String) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LOCATION '/user/vfarneze/data' TBLPROPERTIES ("skip.header.line.count"="1") ;
+
+/check tables created/
+show tables;
+
+/we can use sql here to be happy/
+select * from retailcust;
+select age, country from retailcust where salary > 20000;
+
+/IF YOU DROP TABLES HERE IN HIVE, THEY WILL ALSO BE DELETED IN HADOOP/
+drop table retailcust;
+
+/check the table deleted/
+dfs -ls /user/vfarneze/data/
+
+*** EXTERNAL TABLES ***
+/if hive is not the only one using a table, you can create an external table when you are in hive/
+/this way, if you delete the external table in hive, it will be deleted from hive but it will remain active outside of hive/
+/it can be used then by other tools, like spark/
+
+/create external table for csv/
+create external table retailcustext (age INT, salary FLOAT, gender String, country String, purchased String) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LOCATION '/user/vfarneze/data' TBLPROPERTIES ("skip.header.line.count"="1") ;
