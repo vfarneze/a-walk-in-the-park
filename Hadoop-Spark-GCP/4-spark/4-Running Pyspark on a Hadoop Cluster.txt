@@ -8,28 +8,28 @@ ls
 
 hadoop fs -ls
 
-hadoop fs -mkdir /user/futurexskill
+hadoop fs -mkdir /user/vfarneze
 
-hadoop fs -mkdir /user/futurexskill/data
+hadoop fs -mkdir /user/vfarneze/data
 
 hadoop fs -ls
 
-hadoop fs -put retailstore.csv /user/futurexskill/data
+hadoop fs -put retailstore.csv /user/vfarneze/data
 
-hadoop fs -ls /user/futurexskill/data
+hadoop fs -ls /user/vfarneze/data
 
 
-hadoop fs -cat /user/futurexskill/data/retailstore.csv
+hadoop fs -cat /user/vfarneze/data/retailstore.csv
 
-hadoop fs -rm /user/futurexskill/data/retailstore.csv
+hadoop fs -rm /user/vfarneze/data/retailstore.csv
 
 ls
 
-hadoop fs -put retailstore.csv /user/futurexskill/data
+hadoop fs -put retailstore.csv /user/vfarneze/data
 
-hadoop fs -ls /user/futurexskill/data
+hadoop fs -ls /user/vfarneze/data
 
-hadoop fs -cat /user/futurexskill/data/retailstore.csv
+hadoop fs -cat /user/vfarneze/data/retailstore.csv
 ===================================================
 
 
@@ -39,7 +39,7 @@ customerDF = spark.read.csv("data/retailstore.csv",header=True)
 
 or
 
-customerDF = spark.read.csv("/user/futurexskill/data/retailstore.csv",header=True)
+customerDF = spark.read.csv("/user/vfarneze/data/retailstore.csv",header=True)
 
 customerDF.show()
 
