@@ -2,11 +2,12 @@ pwd
 
 ls
 
-wget https://raw.githubusercontent.com/futurexskill/bigdata/master/retailstore.csv
+wget https://raw.githubusercontent.com/vfarneze/a-walk-in-the-park/master/Hadoop-Spark-GCP/retailstore.csv
 
 ls 
 
-hadoop fs -ls
+-----CREATING HDFS FOLDERS-----
+hadoop fs -lcd ..
 
 hadoop fs -mkdir /user/vfarneze
 
@@ -14,6 +15,8 @@ hadoop fs -mkdir /user/vfarneze/data
 
 hadoop fs -ls
 
+-----INSERTING DATA IN HDFS FOLDERS-----
+
 hadoop fs -put retailstore.csv /user/vfarneze/data
 
 hadoop fs -ls /user/vfarneze/data
@@ -21,15 +24,9 @@ hadoop fs -ls /user/vfarneze/data
 
 hadoop fs -cat /user/vfarneze/data/retailstore.csv
 
+--FOR REMOVING FILE--------
 hadoop fs -rm /user/vfarneze/data/retailstore.csv
 
-ls
-
-hadoop fs -put retailstore.csv /user/vfarneze/data
-
-hadoop fs -ls /user/vfarneze/data
-
-hadoop fs -cat /user/vfarneze/data/retailstore.csv
 ===================================================
 
 
@@ -66,11 +63,15 @@ new_results = spark.sql("select * from customer where age>22").show()
 # run the file using "spark-submit dataframe_demo.py" command
 
 =============================================================================
+**** NOTICE: I successfully created the code using VIM:
 
+vfarneze@training-cluster-m:~/data$ vim dataframe_demo.py
 
+<Transfer archive to hadoop:>
+vfarneze@training-cluster-m:~/data$ hadoop fs -put dataframe_demo.py /user/vfarneze/data
 
-
-
+<simply run .py>
+vfarneze@training-cluster-m:~/data$ spark-submit dataframe_demo.py
 
 
 
